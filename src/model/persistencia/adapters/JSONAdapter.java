@@ -22,7 +22,7 @@ public class JSONAdapter implements InterfacePersistencia {
 
             JSONObject jsonObject = new JSONObject(new JSONTokener(reader));
 
-            list = carregarElementos(jsonObject);
+            list = carregarElementos(jsonObject,false);
 
             // coloca as informações da cartas já carregadas em um array de objects
             JSONObject root = new JSONObject();
@@ -30,6 +30,7 @@ public class JSONAdapter implements InterfacePersistencia {
             JSONArray cartasArray = new JSONArray();
             Flashcard FlashcardAtual;
             for (int i = 0; i < list.size(); i++){
+                System.out.println(list.get(i));
                 FlashcardAtual = list.get(i);
                 cartas = new JSONObject();
                 cartas.put("pergunta", FlashcardAtual.getPergunta());
@@ -53,7 +54,7 @@ public class JSONAdapter implements InterfacePersistencia {
             FileWriter writer = new FileWriter((nomeDoArquivo + ".json"));
             writer.write(root.toString(4));
             writer.close();
-            System.out.println("Arquivo criado com sucesso!");
+            System.out.println("Arquivo Salvo!");
             sucesso = true;
 
             //finalizar
@@ -100,7 +101,7 @@ public class JSONAdapter implements InterfacePersistencia {
             // Criar um objeto JSON a partir do arquivo
             JSONObject jsonObject = new JSONObject(new JSONTokener(reader));
 
-            list = carregarElementos(jsonObject);
+            list = carregarElementos(jsonObject,false);
 
 
         }catch(FileNotFoundException e){
@@ -158,17 +159,18 @@ public class JSONAdapter implements InterfacePersistencia {
 
     /*=============métodos private para ajudar em códigos que são utilizados em mais de um lugar============*/
 
-    private LinkedList<Flashcard> carregarElementos(JSONObject jsonObject){
+    private LinkedList<Flashcard> carregarElementos(JSONObject jsonObject, boolean bypass){
         LinkedList<Flashcard> list = new LinkedList<Flashcard>();
 
         if(!jsonObject.isEmpty()){//verifica se não é um arquivo vazio
             JSONArray arrayCartas = jsonObject.getJSONArray("cartas");
             if(!arrayCartas.isEmpty()){
                 String pergunta = "", resposta = "", link = "";
-
+                System.out.println(arrayCartas.length());
                 for(int i = 0; i < arrayCartas.length(); i++) {//loop para pegar carta por carta e transf em um Flashcard
                     JSONObject carta = arrayCartas.getJSONObject(i);
                     boolean enabled = carta.getBoolean("enabled");
+                    if(bypass) enabled = true;
                     if(enabled){
                         pergunta = carta.getString("pergunta");
                         resposta = carta.getString("resposta");

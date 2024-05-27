@@ -4,6 +4,8 @@ import model.Flashcards;
 import model.persistencia.PersistenciaLink;
 import model.tipos.Flashcard;
 import view.adapters.textBased.TextoFlashMenu;
+import view.adapters.textBased.TextoJogoMenu;
+import view.adapters.textBased.TextoUmJogador;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,7 +13,7 @@ import java.util.Scanner;
 public class ControleFlashMenu {
 
     private Flashcards cards;
-    public boolean MenuFlashcards() {
+    public boolean menuFlashcards() {
         boolean cartasCarregadas = false;
         int opcao = 0;
         boolean flipflop = true;
@@ -54,17 +56,19 @@ public class ControleFlashMenu {
                             }
                         }
                     } else if (i == 3) {//pede um link caso o usuário queira importar uma imagem
-                        link = input.nextLine();
+                        //link = input.nextLine();
                     }
                 }
                 if(persistencia.salvarFlashcards(nomeDoArquivo, pergunta, resposta, enabled, link)){//carrega os flashcards no arquivo + o novo
                     cards = new Flashcards(nomeDoArquivo);
+                    flipflop = false;
                 }else{//se nenhum card estiver carregado ele cria um novo
                     Flashcard auxFlashcard = new Flashcard(pergunta, resposta, enabled, link);
                     cards = new Flashcards(aux);
                 }
             }else if(opcao == 2){//carregar flashcards
                 cards = new Flashcards(persistencia.carregarFlashcards(nomeDoArquivo));
+                flipflop = false;
 
             }else if(opcao == 3){//deletar flashcard
                 int id = -1;
@@ -79,9 +83,45 @@ public class ControleFlashMenu {
                 if(id != -1) {//se ele for -1 é que ocorreu um erro
                     cards.removerFlashcards(nomeDoArquivo, id);
                 }
+            }else{// caso a opção não seja valida ele manda uma mensagem de erro e repete o loop
+                TextoFlashMenu.imprimirOpcaoInvalida();
             }
         }while(opcao != 0);
-
+        input.close();
         return cartasCarregadas;
+    }
+
+    public void MenuModoDeJogo() {
+        int opcao = 0;
+        Scanner input = new Scanner(System.in);
+        boolean jogadorAcertou = false;
+        do {
+            TextoJogoMenu.imprimirMenu();// chama o metodo do view pra imprimir no console
+            opcao = input.nextInt();
+            int acertos = 0;
+            if(opcao == 1){// seleciona o modo de um jogador
+                ControleUmJogador modoDeJogo = new ControleUmJogador(cards);
+                do {
+                    TextoUmJogador.imprimirMenu();
+                    TextoUmJogador.imprimirAcertos(acertos);
+                    opcao = input.nextInt();
+                    if(opcao == 1){
+                        input.nextLine();// pula a linha para a resposta, devido ao nextInt()
+                        String resposta = input.nextLine();
+                        jogadorAcertou = modoDeJogo.responder(resposta); //verifica se a resposta esta correta
+                        if(jogadorAcertou) acertos++;
+                    }else if(opcao == 2){
+                        modoDeJogo.passarFlashcard(false);
+                    }else if(opcao == 3){
+                        modoDeJogo.sortearFlashcard(jogadorAcertou);
+                    }else if(opcao == 4){
+                        modoDeJogo.virarFlashcard();
+                    }
+                }while(opcao != 0);
+            }else if(opcao == 2){// seleciona o modo de dois jogadores
+                ControleDoisJogadores modoDeJogo = new ControleDoisJogadores(cards);
+            }else TextoJogoMenu.imprimirOpcaoInvalida();
+        }while(opcao != 0);
+        input.close();
     }
 }

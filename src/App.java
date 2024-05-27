@@ -1,5 +1,7 @@
 import controller.ControleFlashMenu;
+import model.tipos.Flashcard;
 import view.adapters.textBased.HubTexto;
+import view.adapters.textBased.TextoJogoMenu;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -25,10 +27,10 @@ public class App {
                     opcao = 4;
                 }
                 if (opcao == 1) {
-                    cartasCarregadas = controle.MenuFlashcards();
+                    cartasCarregadas = controle.menuFlashcards();
                 } else if (opcao == 2) {
                     if(cartasCarregadas){//caso o jogador tenha carregado cartas ele pode jogar
-                        //controle.MenuModoDeJogo();
+                        controle.MenuModoDeJogo();
                     }else{// caso nao carregue cartas o programa nao deixa ele prosseguir
                         HubTexto.imprimirMensagemErroFlashcardsCarregar();
                     }
@@ -36,7 +38,11 @@ public class App {
                     System.exit(0);
                 }
             }while(opcao == 0);
-        }else{
+        }else{//enquanto o modo grafico nao existe, é possível testar funções aqui
+            Flashcard teste = new Flashcard("a minha pergunta foi essa", "Essa foi a resposta", true, "");
+            TextoJogoMenu.imprimirPerguntaCartaAtual(teste);
+            TextoJogoMenu.imprimirAnimacaoCartaAtual(teste);
+            TextoJogoMenu.imprimirRespostaCartaAtual(teste);
             //modo gui aqui
         }
         input.close();

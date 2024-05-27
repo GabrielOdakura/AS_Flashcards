@@ -18,11 +18,15 @@ public class TextoFlashMenu {
         }else if(indice == 2){
             System.out.println("Digite se ela estará habilitada de padrão: ");
         }else if(indice == 3){
-            System.out.println("Digite um link se tiver: ");
+            System.out.println("Digite um link para uma imagem(deixe em branco caso não queira adicionar): ");
         }
     }
 
     public static void imprimirSolicitarNomeArquivo() {
         System.out.println("Digite o nome do arquivo: ");
+    }
+
+    public static void imprimirOpcaoInvalida() {
+        System.out.println("Opção Inválida, tente novamente!");
     }
 }

@@ -44,7 +44,7 @@ public class Flashcards {
         return numeroDeCartas;
     }
 
-    public void setNumeroDeCartas(int numeroDeCartas) {
+    private void setNumeroDeCartas(int numeroDeCartas) {
         this.numeroDeCartas = numeroDeCartas;
     }
 
@@ -54,5 +54,9 @@ public class Flashcards {
 
     public void setCards(LinkedList<Flashcard> cards) {
         this.cards = cards;
+    }
+
+    public Flashcard getCard(int index){
+        return cards.get(index);
     }
 }
