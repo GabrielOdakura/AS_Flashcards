@@ -106,7 +106,11 @@ public class ControleFlashMenu {
         boolean jogadorAcertou = false;
         do {
             TextoJogoMenu.imprimirMenu();// chama o metodo do view pra imprimir no console
-            opcao = input.nextInt();
+            try {
+                opcao = input.nextInt();
+            }catch (InputMismatchException e){
+                opcao = -1;
+            }
             int acertos = 0;
             if(opcao == 1){// seleciona o modo de um jogador
                 ControleUmJogador modoDeJogo = new ControleUmJogador(cards);
@@ -132,6 +136,8 @@ public class ControleFlashMenu {
                         modoDeJogo.sortearFlashcard(jogadorAcertou);
                     }else if(opcao == 4){
                         modoDeJogo.virarFlashcard();
+                    }else{
+                        TextoJogoMenu.imprimirOpcaoInvalida();
                     }
                 }while(opcao != 0);
             }else if(opcao == 2){// seleciona o modo de dois jogadores
