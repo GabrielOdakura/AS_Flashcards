@@ -35,7 +35,7 @@ public class ControleFlashMenu {
             }catch (InputMismatchException e){// caso o usuario entre um tipo errado gera uma exceção
                 TextoFlashMenu.imprimirErroDeEntrada();
                 TextoFlashMenu.imprimirMenu();
-                opcao = 4;
+                opcao = -1;
             }
             if(opcao == 1){// salvar flashcard
                 String pergunta = "", resposta = "", link = "", aux = "";
@@ -49,26 +49,22 @@ public class ControleFlashMenu {
                     } else if (i == 2) {//pergunta se a carta vai estar habilitada pro usuário
                         aux = input.nextLine();
                         if (!aux.isEmpty()) {
-                            if (aux.equalsIgnoreCase("enabled")) {
-                                enabled = true;
-                            } else {
-                                enabled = false;
-                            }
+                            enabled = aux.equalsIgnoreCase("enabled"); //se for igual a enabled coloca como true
                         }
                     } else if (i == 3) {//pede um link caso o usuário queira importar uma imagem
-                        //link = input.nextLine();
+                        link = input.nextLine();
                     }
                 }
                 if(persistencia.salvarFlashcards(nomeDoArquivo, pergunta, resposta, enabled, link)){//carrega os flashcards no arquivo + o novo
                     cards = new Flashcards(nomeDoArquivo);
-                    flipflop = false;
                 }else{//se nenhum card estiver carregado ele cria um novo
                     Flashcard auxFlashcard = new Flashcard(pergunta, resposta, enabled, link);
                     cards = new Flashcards(aux);
                 }
+                flipflop = true;
             }else if(opcao == 2){//carregar flashcards
                 cards = new Flashcards(persistencia.carregarFlashcards(nomeDoArquivo));
-                flipflop = false;
+                flipflop = true;
 
             }else if(opcao == 3){//deletar flashcard
                 int id = -1;

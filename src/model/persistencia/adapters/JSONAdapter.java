@@ -22,7 +22,7 @@ public class JSONAdapter implements InterfacePersistencia {
 
             JSONObject jsonObject = new JSONObject(new JSONTokener(reader));
 
-            list = carregarElementos(jsonObject,false);
+            list = carregarElementos(jsonObject,true);
 
             // coloca as informações da cartas já carregadas em um array de objects
             JSONObject root = new JSONObject();
@@ -170,11 +170,13 @@ public class JSONAdapter implements InterfacePersistencia {
                 for(int i = 0; i < arrayCartas.length(); i++) {//loop para pegar carta por carta e transf em um Flashcard
                     JSONObject carta = arrayCartas.getJSONObject(i);
                     boolean enabled = carta.getBoolean("enabled");
+                    System.out.println(enabled);
                     if(bypass) enabled = true;
                     if(enabled){
                         pergunta = carta.getString("pergunta");
                         resposta = carta.getString("resposta");
                         link = carta.getString("link");
+                        enabled = carta.getBoolean("enabled");
                         Flashcard novoFlashcard = new Flashcard(pergunta,resposta,enabled,link);
                         list.add(novoFlashcard);
                     }
