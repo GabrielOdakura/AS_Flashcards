@@ -1,5 +1,7 @@
 package view.adapters.textBased;
 
+import utils.ConsoleUtils;
+
 public class HubTexto {
 
     public static void imprimirIntro(){
@@ -22,5 +24,9 @@ public class HubTexto {
 
     public static void imprimirMensagemErroFlashcardsCarregar(){
         System.out.println("Carregue algum pacote de Flashcards antes de jogar!\n");
+    }
+
+    public static void imprimirSaidaDeJogo() {
+        System.out.println( ConsoleUtils.RED + "Obrigado por jogar!" + ConsoleUtils.RESET);
     }
 }

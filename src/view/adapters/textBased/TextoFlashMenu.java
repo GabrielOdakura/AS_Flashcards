@@ -3,7 +3,7 @@ package view.adapters.textBased;
 public class TextoFlashMenu {
     public static void imprimirMenu(){
         System.out.println("\nEscolha uma opção:\n1 - Salvar Flashcard\n2 - Carregar Flashcard\n" +
-                "3 - Remover Flashcard\n0 - Sair Deste Menu\nOpção Escolhida: ");
+                "3 - Remover Flashcard\n4 - Gerar Pacote Basico\n0 - Sair Deste Menu\nOpção Escolhida: ");
     }
 
     public static void imprimirErroDeEntrada(){
@@ -27,6 +27,10 @@ public class TextoFlashMenu {
     }
 
     public static void imprimirOpcaoInvalida() {
-        System.out.println("Opção Inválida, tente novamente!");
+        System.out.println("Opção Inválida, tente novamente!\n");
+    }
+
+    public static void imprimirVoltandoMenu() {
+        System.out.println("Voltando ao Menu Principal!\n");
     }
 }

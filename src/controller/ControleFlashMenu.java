@@ -1,6 +1,7 @@
 package controller;
 
 import model.Flashcards;
+import model.persistencia.PacoteCartasBasico;
 import model.persistencia.PersistenciaLink;
 import model.tipos.Flashcard;
 import view.adapters.textBased.TextoFlashMenu;
@@ -26,11 +27,13 @@ public class ControleFlashMenu {
             String nomeDoArquivo = "";
             try{
                 opcao = input.nextInt();
-                if(flipflop && opcao != 0) {
-                    TextoFlashMenu.imprimirSolicitarNomeArquivo();
-                    input.nextLine();
-                    nomeDoArquivo = input.nextLine();
-                    flipflop = false;
+                if(opcao != 4) {
+                    if (flipflop && opcao != 0) {
+                        TextoFlashMenu.imprimirSolicitarNomeArquivo();
+                        input.nextLine();
+                        nomeDoArquivo = input.nextLine();
+                        flipflop = false;
+                    }
                 }
             }catch (InputMismatchException e){// caso o usuario entre um tipo errado gera uma exceção
                 TextoFlashMenu.imprimirErroDeEntrada();
@@ -57,6 +60,7 @@ public class ControleFlashMenu {
                 }
                 if(persistencia.salvarFlashcards(nomeDoArquivo, pergunta, resposta, enabled, link)){//carrega os flashcards no arquivo + o novo
                     cards = new Flashcards(nomeDoArquivo);
+                    cartasCarregadas = true;
                 }else{//se nenhum card estiver carregado ele cria um novo
                     Flashcard auxFlashcard = new Flashcard(pergunta, resposta, enabled, link);
                     cards = new Flashcards(aux);
@@ -79,11 +83,20 @@ public class ControleFlashMenu {
                 if(id != -1) {//se ele for -1 é que ocorreu um erro
                     cards.removerFlashcards(nomeDoArquivo, id);
                 }
+            }else if(opcao == 4){
+                PacoteCartasBasico pacoteBase = new PacoteCartasBasico();
+                if(persistencia.salvarPacoteBase(pacoteBase.gerarPacoteBase())){
+                    cards = new Flashcards("PacoteBase");
+                    cartasCarregadas = true;
+                }
+
+            }else if(opcao == 0){
+                TextoFlashMenu.imprimirVoltandoMenu();
             }else{// caso a opção não seja valida ele manda uma mensagem de erro e repete o loop
                 TextoFlashMenu.imprimirOpcaoInvalida();
+                opcao = -1;
             }
         }while(opcao != 0);
-        input.close();
         return cartasCarregadas;
     }
 
@@ -118,6 +131,5 @@ public class ControleFlashMenu {
                 ControleDoisJogadores modoDeJogo = new ControleDoisJogadores(cards);
             }else TextoJogoMenu.imprimirOpcaoInvalida();
         }while(opcao != 0);
-        input.close();
     }
 }

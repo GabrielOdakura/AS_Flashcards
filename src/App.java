@@ -4,6 +4,7 @@ import view.adapters.textBased.HubTexto;
 import view.adapters.textBased.TextoJogoMenu;
 
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class App {
@@ -20,14 +21,21 @@ public class App {
 
             do {
                 try {
-                    opcao = input.nextInt();
+                    String aux = input.nextLine();
+                    opcao = Integer.parseInt(aux);
                 } catch (InputMismatchException e) {// caso o usuario entre um tipo errado gera uma exceção
                     HubTexto.imprimirOpcaoInvalida();
-                    HubTexto.imprimirOpcoesMenuPrincipal();
-                    opcao = 4;
+                    opcao = -1;
+                } catch (NumberFormatException e){
+                    HubTexto.imprimirOpcaoInvalida();
+                    opcao = -1;
+                }catch (NoSuchElementException e){
+                    input.close();
+                    input = new Scanner(System.in);
                 }
                 if (opcao == 1) {
                     cartasCarregadas = controle.menuFlashcards();
+                    opcao = -1;
                 } else if (opcao == 2) {
                     if(cartasCarregadas){//caso o jogador tenha carregado cartas ele pode jogar
                         controle.MenuModoDeJogo();
@@ -35,9 +43,14 @@ public class App {
                         HubTexto.imprimirMensagemErroFlashcardsCarregar();
                     }
                 }else if(opcao == 0){
+                    HubTexto.imprimirSaidaDeJogo();
                     System.exit(0);
+                }else {
+                    HubTexto.imprimirOpcaoInvalida();
                 }
-            }while(opcao == 0);
+                if(opcao != 0) HubTexto.imprimirOpcoesMenuPrincipal();
+
+            }while(opcao != 0);
         }else{//enquanto o modo grafico nao existe, é possível testar funções aqui
             Flashcard teste = new Flashcard("a minha pergunta foi essa", "Essa foi a resposta", true, "");
             TextoJogoMenu.imprimirPerguntaCartaAtual(teste);

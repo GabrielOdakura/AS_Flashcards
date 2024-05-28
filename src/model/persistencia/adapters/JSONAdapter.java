@@ -1,6 +1,7 @@
 package model.persistencia.adapters;
 
 import interfaces.InterfacePersistencia;
+import model.Flashcards;
 import model.tipos.Flashcard;
 
 import org.json.*;
@@ -30,7 +31,6 @@ public class JSONAdapter implements InterfacePersistencia {
             JSONArray cartasArray = new JSONArray();
             Flashcard FlashcardAtual;
             for (int i = 0; i < list.size(); i++){
-                System.out.println(list.get(i));
                 FlashcardAtual = list.get(i);
                 cartas = new JSONObject();
                 cartas.put("pergunta", FlashcardAtual.getPergunta());
@@ -75,7 +75,6 @@ public class JSONAdapter implements InterfacePersistencia {
                 root.put("cartas", cartasArray);
 
                 FileWriter writer = new FileWriter(nomeDoArquivo + ".json");
-                System.out.println(root);
                 writer.write(root.toString(4));
                 writer.close();
                 System.out.println("Arquivo criado com sucesso!");
@@ -157,6 +156,46 @@ public class JSONAdapter implements InterfacePersistencia {
         }
     }
 
+    @Override
+    public boolean salvarPacoteBase(Flashcards cartas) {
+        boolean sucesso = false, enabled;
+        String pergunta, resposta, link;
+        int contador = 0;
+
+            try {
+                JSONObject root = new JSONObject();
+                JSONArray cartasArray = new JSONArray();
+                do {
+                    pergunta = cartas.getCard(contador).getPergunta();
+                    resposta = cartas.getCard(contador).getResposta();
+                    enabled = cartas.getCard(contador).isEnabled();
+                    link = cartas.getCard(contador).getLink();
+                    JSONObject carta = new JSONObject();
+
+                    carta.put("pergunta", pergunta);
+                    carta.put("resposta", resposta);
+                    carta.put("enabled", enabled);
+                    carta.put("link", link);
+
+                    cartasArray.put(carta);
+                    contador++;
+                }while(contador != cartas.getNumeroDeCartas());
+                root.put("cartas", cartasArray);
+
+                FileWriter writer = new FileWriter("PacoteBase.json");
+                writer.write(root.toString(4));
+                writer.close();
+                System.out.println("Arquivo criado com sucesso!");
+                sucesso = true;
+            } catch (IOException ex) {
+                System.out.println("Arquivo não pode ser criado/lido!");
+            }
+            contador++;
+        return sucesso;
+    }
+
+
+
     /*=============métodos private para ajudar em códigos que são utilizados em mais de um lugar============*/
 
     private LinkedList<Flashcard> carregarElementos(JSONObject jsonObject, boolean bypass){
@@ -166,11 +205,9 @@ public class JSONAdapter implements InterfacePersistencia {
             JSONArray arrayCartas = jsonObject.getJSONArray("cartas");
             if(!arrayCartas.isEmpty()){
                 String pergunta = "", resposta = "", link = "";
-                System.out.println(arrayCartas.length());
                 for(int i = 0; i < arrayCartas.length(); i++) {//loop para pegar carta por carta e transf em um Flashcard
                     JSONObject carta = arrayCartas.getJSONObject(i);
                     boolean enabled = carta.getBoolean("enabled");
-                    System.out.println(enabled);
                     if(bypass) enabled = true;
                     if(enabled){
                         pergunta = carta.getString("pergunta");
@@ -181,6 +218,7 @@ public class JSONAdapter implements InterfacePersistencia {
                         list.add(novoFlashcard);
                     }
                 }
+                System.out.println("Arquivo Carregado com Sucesso!");
             }
         }else{
             System.out.println("Arquivo vazio!");
