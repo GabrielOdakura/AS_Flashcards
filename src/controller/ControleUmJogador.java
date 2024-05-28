@@ -19,13 +19,13 @@ public class ControleUmJogador implements InterfaceJogadores {
     @Override
     public boolean responder(String resposta) {
         boolean acertou = false;
-        if(cartaVirada) {
+        if(!cartaVirada) {
             if (cartaAtual.getResposta().equalsIgnoreCase(resposta)) {
                 acertou = true;
                 TextoUmJogador.imprimirRespostaCorreta();
                 sortearFlashcard(true);
             } else {
-                TextoUmJogador.imprimirOpcaoInvalida();
+                TextoUmJogador.imprimirRespostaIncorreta();
             }
         }else{
 
@@ -35,9 +35,18 @@ public class ControleUmJogador implements InterfaceJogadores {
 
     @Override
     public void virarFlashcard() {
-        TextoJogoMenu.imprimirPerguntaCartaAtual(cartaAtual);
-        TextoJogoMenu.imprimirAnimacaoCartaAtual(cartaAtual);
-        TextoJogoMenu.imprimirRespostaCartaAtual(cartaAtual);
+        this.cartaVirada = true;
+        try {
+            TextoJogoMenu.imprimirPerguntaCartaAtual(cartaAtual);
+            Thread.sleep(500);
+            TextoJogoMenu.imprimirAnimacaoCartaAtual(cartaAtual);
+            Thread.sleep(500);
+            TextoJogoMenu.imprimirRespostaCartaAtual(cartaAtual);
+            Thread.sleep(1000);
+            cartaAtual = passarFlashcard(false);
+        }catch (InterruptedException e){
+
+        }
     }
 
     @Override
@@ -51,10 +60,18 @@ public class ControleUmJogador implements InterfaceJogadores {
         //Leitner sortear = new Leitner();// baseado na proposta de Leitner
         Simples sortear = new Simples();//baseado em um RNG
         cartaAtual = sortear.sortear(cards, acertou);
+        cartaVirada = false;
         return cartaAtual;
     }
 
+    public Flashcard getCartaAtual() {
+        if(cartaAtual == null){
+            cartaAtual = sortearFlashcard(true);
+        }
+        return cartaAtual;
+    }
 
-
-
+    public boolean isCartaVirada() {
+        return cartaVirada;
+    }
 }

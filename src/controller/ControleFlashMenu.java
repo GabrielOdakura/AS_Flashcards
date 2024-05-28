@@ -111,13 +111,20 @@ public class ControleFlashMenu {
             if(opcao == 1){// seleciona o modo de um jogador
                 ControleUmJogador modoDeJogo = new ControleUmJogador(cards);
                 do {
+                    TextoUmJogador.imprimirCarta(modoDeJogo.getCartaAtual());
                     TextoUmJogador.imprimirMenu();
                     TextoUmJogador.imprimirAcertos(acertos);
                     opcao = input.nextInt();
                     if(opcao == 1){
+                        TextoUmJogador.imprimirCarta(modoDeJogo.getCartaAtual());
                         input.nextLine();// pula a linha para a resposta, devido ao nextInt()
-                        String resposta = input.nextLine();
-                        jogadorAcertou = modoDeJogo.responder(resposta); //verifica se a resposta esta correta
+                        if(!modoDeJogo.isCartaVirada()) {
+                            TextoUmJogador.imprimirEntradaResposta();
+                            String resposta = input.nextLine();
+                            jogadorAcertou = modoDeJogo.responder(resposta); //verifica se a resposta esta correta
+                        }else{
+                            TextoUmJogador.imprimirCartaJaVirada();
+                        }
                         if(jogadorAcertou) acertos++;
                     }else if(opcao == 2){
                         modoDeJogo.passarFlashcard(false);

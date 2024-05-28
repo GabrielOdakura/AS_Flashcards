@@ -27,6 +27,6 @@ public class HubTexto {
     }
 
     public static void imprimirSaidaDeJogo() {
-        System.out.println( ConsoleUtils.RED + "Obrigado por jogar!" + ConsoleUtils.RESET);
+        System.out.println( ConsoleUtils.CYAN + "Obrigado por jogar!" + ConsoleUtils.RESET);
     }
 }

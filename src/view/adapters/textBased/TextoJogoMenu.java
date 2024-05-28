@@ -54,7 +54,7 @@ public class TextoJogoMenu {
         imprimirLinhaVazia(tamanhoPergunta);
         imprimirLinhaVazia(tamanhoPergunta);
         System.out.println(bordaLateralEsq + carta.getPergunta()
-                .replaceAll("[a-zA-Z]", "*") + bordaLateralDir);
+                .replaceAll(".", "*") + bordaLateralDir);
         imprimirLinhaVazia(tamanhoPergunta);
         imprimirLinhaVazia(tamanhoPergunta);
         System.out.println(bordaCimaBaixoLocal);
