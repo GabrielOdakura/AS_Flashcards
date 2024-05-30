@@ -75,15 +75,15 @@ public class ControleFlashMenu {
                 int id = -1;
                 try{
                     TextoFlashMenu.imprimirEscolhaDeId();
-                     id = input.nextInt();
-                    System.out.println(id);
+                     String temp = input.nextLine();
+                     if(temp.isEmpty()) throw new InputMismatchException();
+                     id = Integer.parseInt(temp);
                      persistencia.removerFlashCards(nomeDoArquivo, id);
-                     input.nextLine();//por conta do nextInt já que ele não pula uma linha depois de ler o id
+//                     input.nextLine();//por conta do nextInt já que ele não pula uma linha depois de ler o id
                 }catch (InputMismatchException e){// caso o usuario entre um tipo errado gera uma exceção
                     TextoFlashMenu.imprimirErroDeEntrada();
                     id = -1;
                 }catch (Exception e){
-                    e.printStackTrace();
                     id = -1;
                 }
                 if(id == -1) {//se ele for -1 é que ocorreu um erro

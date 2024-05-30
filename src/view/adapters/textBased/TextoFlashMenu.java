@@ -7,7 +7,7 @@ public class TextoFlashMenu {
     }
 
     public static void imprimirErroDeEntrada(){
-        System.out.println("\nEntrada Inválida! Digite apenas um dígito!\n");
+        System.out.println("\nEntrada Inválida! Digite um número!\n");
     }
 
     public static void imprimirSalvarNovoFlashcard(int indice){
