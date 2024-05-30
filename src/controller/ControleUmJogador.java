@@ -61,7 +61,7 @@ public class ControleUmJogador implements InterfaceJogadores {
     }
 
     public Flashcard getCartaAtual() {
-        if(cartaAtual == null){
+        if(cartaAtual == null){// se o jogador ainda não tem uma carta, sorteia uma carta para ele
             cartaAtual = sortearFlashcard(true);
         }
         return cartaAtual;

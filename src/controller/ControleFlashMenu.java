@@ -127,15 +127,15 @@ public class ControleFlashMenu {
                             TextoUmJogador.imprimirEntradaResposta();
                             String resposta = input.nextLine();
                             jogadorAcertou = modoDeJogo.responder(resposta); //verifica se a resposta esta correta
-                        }else{
+                        }else{//caso a carta estiver virada o jogador não pode tentar responder
                             TextoUmJogador.imprimirCartaJaVirada();
                         }
                         if(jogadorAcertou) acertos++;
-                    }else if(opcao == 2){
+                    }else if(opcao == 2){// passa o flashcard
                         modoDeJogo.passarFlashcard(false);
-                    }else if(opcao == 3){
+                    }else if(opcao == 3){// sorteia um novo flashcard
                         modoDeJogo.sortearFlashcard(jogadorAcertou);
-                    }else if(opcao == 4){
+                    }else if(opcao == 4){//vira o flashcard para o jogador ver a resposta
                         modoDeJogo.virarFlashcard();
                     }else{
                         TextoJogoMenu.imprimirOpcaoInvalida();
@@ -160,25 +160,25 @@ public class ControleFlashMenu {
                             TextoDoisJogadores.imprimirEntradaResposta();
                             String resposta = input.nextLine();
                             jogadorAcertou = modoDeJogo.responder(resposta); //verifica se a resposta esta correta
-                        }else{
+                        }else{//caso a carta estiver virada o jogador não pode tentar responder
                             TextoDoisJogadores.imprimirCartaJaVirada();
                         }
                         if(jogadorAcertou) {
-                            if (modoDeJogo.getVezJogador()) acertos[0]++;
-                            else acertos[1]++;
+                            if (modoDeJogo.getVezJogador()) acertos[0]++;//adiciona a pontuação do jogador 1
+                            else acertos[1]++;//adiciona a pontuação do jogador 2
                         }
-                    }else if(opcao == 2){
+                    }else if(opcao == 2){// passa o flashcard
                         modoDeJogo.passarFlashcard(false);
-                    }else if(opcao == 3){
+                    }else if(opcao == 3){// sorteia um novo flashcard
                         modoDeJogo.sortearFlashcard(jogadorAcertou);
-                    }else if(opcao == 4){
+                    }else if(opcao == 4){//vira o flashcard para o jogador ver a resposta
                         modoDeJogo.virarFlashcard();
-                    }else if(opcao == 5){
+                    }else if(opcao == 5){// vê o flashcard do outro jogador
                         TextoDoisJogadores.imprimirCartaOutroJogador(modoDeJogo.espiarFlashcard());
-                    }else if(opcao == 6){
+                    }else if(opcao == 6){// troca os flashcards entre os jogadores
                         modoDeJogo.trocarCartas();
                         TextoDoisJogadores.imprimirMensagemCartasTrocadas();
-                    }else if(opcao == 7){
+                    }else if(opcao == 7){// troca a vez do jogador
                         modoDeJogo.passarVez();
                     }else{
                         TextoJogoMenu.imprimirOpcaoInvalida();

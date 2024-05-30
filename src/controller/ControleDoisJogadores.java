@@ -104,12 +104,12 @@ public class ControleDoisJogadores implements InterfaceJogadores {
     public Flashcard getCartaAtual() {
         Flashcard cartaRetorno = null;
         if(vezJogador) {
-            if(cartaAtualP1 == null){
+            if(cartaAtualP1 == null){// caso o jogador ainda não tenha uma carta ela será sorteada
                 cartaAtualP1 = sortearFlashcard(true);
                 cartaRetorno = cartaAtualP1;
             }else cartaRetorno = cartaAtualP1;
         }else{
-            if(cartaAtualP2 == null){
+            if(cartaAtualP2 == null){// caso o jogador ainda não tenha uma carta ela será sorteada
                 cartaAtualP2 = sortearFlashcard(true);
                 cartaRetorno = cartaAtualP2;
             }else cartaRetorno = cartaAtualP2;
@@ -117,18 +117,18 @@ public class ControleDoisJogadores implements InterfaceJogadores {
         return cartaRetorno;
     }
 
-    public void passarVez() {
+    public void passarVez() {//literal um flip flop, troca a vez do jogador
         this.vezJogador = !this.vezJogador;
     }
 
     //se for a vez do jogador 1 ele vê a carta do jogador 2 e vice versa
-    public Flashcard espiarFlashcard() {
+    public Flashcard espiarFlashcard() {// metodo para pegar a carta do jogador adversário
         if(vezJogador){
             return cartaAtualP2;
         }else return cartaAtualP1;
     }
 
-    public void trocarCartas() {
+    public void trocarCartas() {//troca as cartas entre os jogadores
         Flashcard aux;
         aux = cartaAtualP2;
         cartaAtualP2 = cartaAtualP1;
