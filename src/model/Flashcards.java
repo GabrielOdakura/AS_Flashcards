@@ -18,8 +18,10 @@ public class Flashcards {
     }
 
     public Flashcards (LinkedList<Flashcard> cartoes){
-        cards = cartoes;
-        numeroDeCartas = cards.size();
+        if(cartoes != null) {
+            cards = cartoes;
+            numeroDeCartas = cards.size();
+        }
     }
 
     public Flashcards(String nomeDoArquivo){

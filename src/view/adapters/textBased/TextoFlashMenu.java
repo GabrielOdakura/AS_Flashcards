@@ -33,4 +33,12 @@ public class TextoFlashMenu {
     public static void imprimirVoltandoMenu() {
         System.out.println("Voltando ao Menu Principal!\n");
     }
+
+    public static void imprimirEscolhaDeId() {
+        System.out.println("Digite o id da carta a ser excluída:");
+    }
+
+    public static void imprimirErroDeId() {
+        System.out.println("Houve um erro com o ID/Não foi possível remover!");
+    }
 }

@@ -122,33 +122,33 @@ public class JSONAdapter implements InterfacePersistencia {
 
             reader.close();
 
-            if(!list.isEmpty()){
+            if(!list.isEmpty()) {
                 Flashcard card = list.get(id);
-                if(card.isEnabled()) card.setEnabled(false);
+                if (card.isEnabled()) card.setEnabled(false);
                 else card.setEnabled(true);
+
+                // coloca as informações da cartas já carregadas em um array de objects
+                JSONObject root = new JSONObject();
+                JSONObject cartas;
+                JSONArray cartasArray = new JSONArray();
+                Flashcard FlashcardAtual;
+                for (int i = 0; i < list.size(); i++) {
+                    FlashcardAtual = list.get(i);
+                    cartas = new JSONObject();
+                    cartas.put("pergunta", FlashcardAtual.getPergunta());
+                    cartas.put("resposta", FlashcardAtual.getResposta());
+                    cartas.put("enabled", FlashcardAtual.isEnabled());
+                    cartas.put("link", FlashcardAtual.getLink());
+                    cartasArray.put(cartas);
+                }
+
+                //colocando dentro da root do arquivo
+                root.put("cartas", cartasArray);
+
+                FileWriter writer = new FileWriter((nomeDoArquivo + ".json"));
+                writer.write(root.toString(4));
+                writer.close();
             }
-            // coloca as informações da cartas já carregadas em um array de objects
-            JSONObject root = new JSONObject();
-            JSONObject cartas;
-            JSONArray cartasArray = new JSONArray();
-            Flashcard FlashcardAtual;
-            for (int i = 0; i < list.size(); i++){
-                FlashcardAtual = list.get(i);
-                cartas = new JSONObject();
-                cartas.put("pergunta", FlashcardAtual.getPergunta());
-                cartas.put("resposta", FlashcardAtual.getResposta());
-                cartas.put("enabled", FlashcardAtual.isEnabled());
-                cartas.put("link", FlashcardAtual.getLink());
-                cartasArray.put(cartas);
-            }
-
-            //colocando dentro da root do arquivo
-            root.put("cartas", cartasArray);
-
-            FileWriter writer = new FileWriter((nomeDoArquivo + ".json"));
-            writer.write(root.toString(4));
-            writer.close();
-
         }catch (FileNotFoundException e){
             System.out.println("Arquivo inexistente/nome errado!");
         }catch(IOException e){

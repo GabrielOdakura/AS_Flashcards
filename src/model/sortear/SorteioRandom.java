@@ -7,9 +7,15 @@ import model.tipos.Flashcard;
 import java.util.Random;
 
 public class SorteioRandom implements InterfaceSortear {
+    private int ultimoNumero;
     @Override
     public Flashcard sortear(Flashcards cards, boolean acertou){
+        int numSorteado = 0;
         Random random = new Random();
-        return cards.getCard(random.nextInt(0, (cards.getNumeroDeCartas() - 1)));
+        do {
+            numSorteado = random.nextInt(0, (cards.getNumeroDeCartas() - 1));
+        }while(ultimoNumero == numSorteado);
+        ultimoNumero = numSorteado;
+        return cards.getCard(numSorteado);
     }
 }

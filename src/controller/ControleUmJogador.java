@@ -11,6 +11,11 @@ public class ControleUmJogador implements InterfaceJogadores {
     private Flashcards cards;
     private Flashcard cartaAtual;
     private boolean cartaVirada;
+
+    //descomentar abaixo o algoritmo desejado
+    //Leitner sortear = new Leitner();// baseado na proposta de Leitner
+    SorteioRandom sortear = new SorteioRandom();//baseado em um RNG
+
     public ControleUmJogador(Flashcards cards) {
         this.cards = cards;
         this.cartaVirada = false;
@@ -52,9 +57,6 @@ public class ControleUmJogador implements InterfaceJogadores {
 
     @Override
     public Flashcard sortearFlashcard(boolean acertou) {
-        //descomentar abaixo o algoritmo desejado
-        //Leitner sortear = new Leitner();// baseado na proposta de Leitner
-        SorteioRandom sortear = new SorteioRandom();//baseado em um RNG
         cartaAtual = sortear.sortear(cards, acertou);
         cartaVirada = false;
         return cartaAtual;

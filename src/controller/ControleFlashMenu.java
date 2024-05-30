@@ -28,8 +28,8 @@ public class ControleFlashMenu {
             String nomeDoArquivo = "";
             try{
                 opcao = input.nextInt();
-                if(opcao != 4) {
-                    if (flipflop && opcao != 0) {
+                if(opcao >= 1 && opcao <=3) {
+                    if (flipflop) {
                         TextoFlashMenu.imprimirSolicitarNomeArquivo();
                         input.nextLine();
                         nomeDoArquivo = input.nextLine();
@@ -74,15 +74,20 @@ public class ControleFlashMenu {
             }else if(opcao == 3){//deletar flashcard
                 int id = -1;
                 try{
+                    TextoFlashMenu.imprimirEscolhaDeId();
                      id = input.nextInt();
+                    System.out.println(id);
                      persistencia.removerFlashCards(nomeDoArquivo, id);
                      input.nextLine();//por conta do nextInt já que ele não pula uma linha depois de ler o id
                 }catch (InputMismatchException e){// caso o usuario entre um tipo errado gera uma exceção
                     TextoFlashMenu.imprimirErroDeEntrada();
                     id = -1;
+                }catch (Exception e){
+                    e.printStackTrace();
+                    id = -1;
                 }
-                if(id != -1) {//se ele for -1 é que ocorreu um erro
-                    cards.removerFlashcards(nomeDoArquivo, id);
+                if(id == -1) {//se ele for -1 é que ocorreu um erro
+                    TextoFlashMenu.imprimirErroDeId();
                 }
             }else if(opcao == 4){
                 PacoteCartasBasico pacoteBase = new PacoteCartasBasico();
@@ -119,7 +124,12 @@ public class ControleFlashMenu {
                     TextoUmJogador.imprimirCarta(modoDeJogo.getCartaAtual());
                     TextoUmJogador.imprimirMenu();
                     TextoUmJogador.imprimirAcertos(acertos);
-                    opcao = input.nextInt();
+                    try {
+                        opcao = input.nextInt();
+                    }catch (InputMismatchException e){
+                        TextoJogoMenu.imprimirOpcaoInvalida();
+                        opcao = -1;
+                    }
                     if(opcao == 1){
                         TextoUmJogador.imprimirCarta(modoDeJogo.getCartaAtual());
                         input.nextLine();// pula a linha para a resposta, devido ao nextInt()
@@ -152,7 +162,12 @@ public class ControleFlashMenu {
                             else jogadorAtual = "P2";
                     TextoDoisJogadores.imprimirMenu(jogadorAtual);
                     TextoDoisJogadores.imprimirAcertos(acertos);
-                    opcao = input.nextInt();
+                    try {
+                        opcao = input.nextInt();
+                    }catch (InputMismatchException e){
+                        TextoJogoMenu.imprimirOpcaoInvalida();
+                        opcao = -1;
+                    }
                     if(opcao == 1){
                         TextoDoisJogadores.imprimirCarta(modoDeJogo.getCartaAtual());
                         input.nextLine();// pula a linha para a resposta, devido ao nextInt()
