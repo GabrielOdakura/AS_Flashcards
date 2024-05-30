@@ -2,8 +2,7 @@ package controller;
 
 import interfaces.InterfaceJogadores;
 import model.Flashcards;
-import model.sortear.Leitner;
-import model.sortear.Simples;
+import model.sortear.SorteioRandom;
 import model.tipos.Flashcard;
 import view.adapters.textBased.TextoJogoMenu;
 import view.adapters.textBased.TextoUmJogador;
@@ -27,8 +26,6 @@ public class ControleUmJogador implements InterfaceJogadores {
             } else {
                 TextoUmJogador.imprimirRespostaIncorreta();
             }
-        }else{
-
         }
         return acertou;
     }
@@ -43,7 +40,6 @@ public class ControleUmJogador implements InterfaceJogadores {
             Thread.sleep(500);
             TextoJogoMenu.imprimirRespostaCartaAtual(cartaAtual);
             Thread.sleep(1000);
-            cartaAtual = passarFlashcard(false);
         }catch (InterruptedException e){
 
         }
@@ -58,7 +54,7 @@ public class ControleUmJogador implements InterfaceJogadores {
     public Flashcard sortearFlashcard(boolean acertou) {
         //descomentar abaixo o algoritmo desejado
         //Leitner sortear = new Leitner();// baseado na proposta de Leitner
-        Simples sortear = new Simples();//baseado em um RNG
+        SorteioRandom sortear = new SorteioRandom();//baseado em um RNG
         cartaAtual = sortear.sortear(cards, acertou);
         cartaVirada = false;
         return cartaAtual;

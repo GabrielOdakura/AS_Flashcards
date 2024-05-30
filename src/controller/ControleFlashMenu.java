@@ -4,6 +4,7 @@ import model.Flashcards;
 import model.persistencia.PacoteCartasBasico;
 import model.persistencia.PersistenciaLink;
 import model.tipos.Flashcard;
+import view.adapters.textBased.TextoDoisJogadores;
 import view.adapters.textBased.TextoFlashMenu;
 import view.adapters.textBased.TextoJogoMenu;
 import view.adapters.textBased.TextoUmJogador;
@@ -111,9 +112,9 @@ public class ControleFlashMenu {
             }catch (InputMismatchException e){
                 opcao = -1;
             }
-            int acertos = 0;
             if(opcao == 1){// seleciona o modo de um jogador
                 ControleUmJogador modoDeJogo = new ControleUmJogador(cards);
+                int acertos = 0;
                 do {
                     TextoUmJogador.imprimirCarta(modoDeJogo.getCartaAtual());
                     TextoUmJogador.imprimirMenu();
@@ -140,8 +141,50 @@ public class ControleFlashMenu {
                         TextoJogoMenu.imprimirOpcaoInvalida();
                     }
                 }while(opcao != 0);
+                opcao = -1;
             }else if(opcao == 2){// seleciona o modo de dois jogadores
                 ControleDoisJogadores modoDeJogo = new ControleDoisJogadores(cards);
+                int[] acertos = new int[2];
+                do {
+                    String jogadorAtual;
+                    TextoDoisJogadores.imprimirCarta(modoDeJogo.getCartaAtual());
+                    if(modoDeJogo.getVezJogador()) jogadorAtual = "P1";
+                            else jogadorAtual = "P2";
+                    TextoDoisJogadores.imprimirMenu(jogadorAtual);
+                    TextoDoisJogadores.imprimirAcertos(acertos);
+                    opcao = input.nextInt();
+                    if(opcao == 1){
+                        TextoDoisJogadores.imprimirCarta(modoDeJogo.getCartaAtual());
+                        input.nextLine();// pula a linha para a resposta, devido ao nextInt()
+                        if(!modoDeJogo.isCartaVirada()) {
+                            TextoDoisJogadores.imprimirEntradaResposta();
+                            String resposta = input.nextLine();
+                            jogadorAcertou = modoDeJogo.responder(resposta); //verifica se a resposta esta correta
+                        }else{
+                            TextoDoisJogadores.imprimirCartaJaVirada();
+                        }
+                        if(jogadorAcertou) {
+                            if (modoDeJogo.getVezJogador()) acertos[0]++;
+                            else acertos[1]++;
+                        }
+                    }else if(opcao == 2){
+                        modoDeJogo.passarFlashcard(false);
+                    }else if(opcao == 3){
+                        modoDeJogo.sortearFlashcard(jogadorAcertou);
+                    }else if(opcao == 4){
+                        modoDeJogo.virarFlashcard();
+                    }else if(opcao == 5){
+                        TextoDoisJogadores.imprimirCartaOutroJogador(modoDeJogo.espiarFlashcard());
+                    }else if(opcao == 6){
+                        modoDeJogo.trocarCartas();
+                        TextoDoisJogadores.imprimirMensagemCartasTrocadas();
+                    }else if(opcao == 7){
+                        modoDeJogo.passarVez();
+                    }else{
+                        TextoJogoMenu.imprimirOpcaoInvalida();
+                    }
+                }while(opcao != 0);
+                opcao = -1;
             }else TextoJogoMenu.imprimirOpcaoInvalida();
         }while(opcao != 0);
     }

@@ -6,7 +6,7 @@ import model.tipos.Flashcard;
 
 import java.util.Random;
 
-public class Simples implements InterfaceSortear {
+public class SorteioRandom implements InterfaceSortear {
     @Override
     public Flashcard sortear(Flashcards cards, boolean acertou){
         Random random = new Random();
