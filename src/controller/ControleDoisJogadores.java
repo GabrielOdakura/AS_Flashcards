@@ -52,10 +52,10 @@ public class ControleDoisJogadores implements InterfaceJogadores {
         //Leitner sortear = new Leitner();// baseado na proposta de Leitner
         SorteioRandom sortear = new SorteioRandom();//baseado em um RNG
         if(vezJogador){
-            cartaAtualP1 = sortear.sortear(cards, acertou);
+            cartaAtualP1 = sortear.sortear(cards, acertou,vezJogador);
             cartaViradaP1 = false;
         }else{
-            cartaAtualP2 = sortear.sortear(cards, acertou);
+            cartaAtualP2 = sortear.sortear(cards, acertou,vezJogador);
             cartaViradaP2 = false;
         }
 

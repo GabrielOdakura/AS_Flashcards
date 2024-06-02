@@ -9,7 +9,7 @@ import java.util.Random;
 public class SorteioRandom implements InterfaceSortear {
     private int ultimoNumero;
     @Override
-    public Flashcard sortear(Flashcards cards, boolean acertou){
+    public Flashcard sortear(Flashcards cards, boolean acertou, boolean jogador){
         int numSorteado = 0;
         Random random = new Random();
         do {
