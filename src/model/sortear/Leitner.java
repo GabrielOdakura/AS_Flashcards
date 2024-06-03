@@ -6,6 +6,7 @@ import model.tipos.Caixa;
 import model.tipos.Flashcard;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Leitner implements InterfaceSortear {
 
@@ -14,6 +15,7 @@ public class Leitner implements InterfaceSortear {
     private ArrayList<Caixa> caixasP2 = null;
     private Flashcard cartaAtualP2;
     private boolean doOnce = true;
+    private Random random = new Random();
 
     @Override
     public Flashcard sortear(Flashcards cards, boolean acertou, boolean jogador) {
@@ -43,7 +45,11 @@ public class Leitner implements InterfaceSortear {
                     } else {
                         moverCartaParaBaixo(cartaAtualP1, caixasP1);
                     }
-                    return cartaAtualP1 = caixasP1.get(0).getCards().get(0);
+                    int numCartas;
+                    if((numCartas = caixasP1.get(0).getCards().size()) != 1){
+                        return cartaAtualP1 = caixasP1.get(0).getCards().get(random.nextInt(0,caixasP1.get(0).getCards().size() - 1));
+                    }else return cartaAtualP1 = caixasP1.get(0).getCards().get(0);
+
                 }
             }
         }else{
@@ -54,7 +60,10 @@ public class Leitner implements InterfaceSortear {
                     } else {
                         moverCartaParaBaixo(cartaAtualP2, caixasP1);
                     }
-                    return cartaAtualP2 = caixasP1.get(0).getCards().get(0);
+                    int numCartas;
+                    if((numCartas = caixasP2.get(0).getCards().size()) != 1){
+                        return cartaAtualP2 = caixasP2.get(0).getCards().get(random.nextInt(0,caixasP1.get(0).getCards().size() - 1));
+                    }else return cartaAtualP2 = caixasP2.get(0).getCards().get(0);
                 }
             }
         }
