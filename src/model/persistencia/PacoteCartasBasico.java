@@ -1,6 +1,6 @@
 package model.persistencia;
 
-import model.Flashcards;
+import model.tipos.Flashcards;
 import model.tipos.Flashcard;
 
 import java.util.LinkedList;
@@ -12,7 +12,7 @@ public class PacoteCartasBasico {
         cartas.add(new Flashcard("Qual a capital do Afeganistão?", "Cabul", true, ""));
         cartas.add(new Flashcard("Qual a capital da Alemanha?", "Berlim", true, ""));
         cartas.add(new Flashcard("Qual a capital da Bélgica?", "Bruxelas", true, ""));
-        cartas.add(new Flashcard("Qual a capital da Coria do Sul?", "Seul", true, ""));
+        cartas.add(new Flashcard("Qual a capital da Coreia do Sul?", "Seul", true, ""));
         cartas.add(new Flashcard("Qual a capital da Egito?", "Cairo", true, ""));
         cartas.add(new Flashcard("Qual a capital da Espanha?", "Madri", true, ""));
         cartas.add(new Flashcard("Qual a capital da China?", "Pequim", true, ""));

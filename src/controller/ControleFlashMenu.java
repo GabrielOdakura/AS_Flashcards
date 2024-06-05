@@ -1,6 +1,6 @@
 package controller;
 
-import model.Flashcards;
+import model.tipos.Flashcards;
 import model.persistencia.PacoteCartasBasico;
 import model.persistencia.PersistenciaLink;
 import model.tipos.Flashcard;

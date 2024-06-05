@@ -1,7 +1,7 @@
 package model.sortear;
 
 import interfaces.InterfaceSortear;
-import model.Flashcards;
+import model.tipos.Flashcards;
 import model.tipos.Flashcard;
 
 import java.util.Random;

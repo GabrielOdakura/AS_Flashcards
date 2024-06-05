@@ -1,4 +1,4 @@
-package model;
+package model.tipos;
 
 import model.persistencia.PersistenciaLink;
 import model.tipos.Flashcard;

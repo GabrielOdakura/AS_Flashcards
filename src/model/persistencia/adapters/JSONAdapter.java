@@ -1,11 +1,10 @@
 package model.persistencia.adapters;
 
 import interfaces.InterfacePersistencia;
-import model.Flashcards;
+import model.tipos.Flashcards;
 import model.tipos.Flashcard;
 
 import org.json.*;
-import utils.PersistenciaUtils;
 
 import java.io.*;
 import java.util.LinkedList;

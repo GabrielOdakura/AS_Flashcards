@@ -1,9 +1,8 @@
 package controller;
 
 import interfaces.InterfaceJogadores;
-import model.Flashcards;
+import model.tipos.Flashcards;
 import model.sortear.Leitner;
-import model.sortear.SorteioRandom;
 import model.tipos.Flashcard;
 import view.adapters.textBased.TextoJogoMenu;
 import view.adapters.textBased.TextoUmJogador;

@@ -1,6 +1,6 @@
 package model.persistencia;
 
-import model.Flashcards;
+import model.tipos.Flashcards;
 import model.tipos.Flashcard;
 import model.persistencia.adapters.JSONAdapter;
 
