@@ -1,5 +1,6 @@
 package model.persistencia;
 
+import model.tipos.Flashcards;
 import model.tipos.Flashcard;
 import model.persistencia.adapters.JSONAdapter;
 
@@ -18,5 +19,9 @@ public class PersistenciaLink {
     }
     public void removerFlashCards(String nomeDoArquivo, int id){
         adaptador.removerFlashCards(nomeDoArquivo, id);
+    }
+
+    public boolean salvarPacoteBase(Flashcards cartas){
+        return adaptador.salvarPacoteBase(cartas);
     }
 }

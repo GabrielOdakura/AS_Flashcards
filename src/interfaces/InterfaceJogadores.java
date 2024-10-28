@@ -1,10 +1,13 @@
 package interfaces;
 
+import model.tipos.Flashcards;
 import model.tipos.Flashcard;
 
 public interface InterfaceJogadores {
-    void virarFlashcard();
-    Flashcard passarFlashcard();
-    Flashcard sortearFlashcard();
+    Flashcards cards = null;
+    public void virarFlashcard();
+    public Flashcard passarFlashcard(boolean acertou);
+    public Flashcard sortearFlashcard(boolean acertou);
+    public boolean responder(String resposta);
 
 }

@@ -1,4 +1,4 @@
-package model;
+package model.tipos;
 
 import model.persistencia.PersistenciaLink;
 import model.tipos.Flashcard;
@@ -18,8 +18,10 @@ public class Flashcards {
     }
 
     public Flashcards (LinkedList<Flashcard> cartoes){
-        cards = cartoes;
-        numeroDeCartas = cards.size();
+        if(cartoes != null) {
+            cards = cartoes;
+            numeroDeCartas = cards.size();
+        }
     }
 
     public Flashcards(String nomeDoArquivo){
@@ -44,7 +46,7 @@ public class Flashcards {
         return numeroDeCartas;
     }
 
-    public void setNumeroDeCartas(int numeroDeCartas) {
+    private void setNumeroDeCartas(int numeroDeCartas) {
         this.numeroDeCartas = numeroDeCartas;
     }
 
@@ -54,5 +56,9 @@ public class Flashcards {
 
     public void setCards(LinkedList<Flashcard> cards) {
         this.cards = cards;
+    }
+
+    public Flashcard getCard(int index){
+        return cards.get(index);
     }
 }
